@@ -1,0 +1,1 @@
+{"version":3,"file":"abstract.js","sourceRoot":"","sources":["../../../src/data-setter/buttons/abstract.ts"],"names":[],"mappings":";;AAEA;IAGI,YAAY,OAAiB;QACzB,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IAC3B,CAAC;IAEM,GAAG;QACN,MAAM,CAAC,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,GAAG,EAAE,CAAC,CAAC;IACxC,CAAC;IAEM,GAAG;QACN,MAAM,CAAC,IAAI,CAAC;IAChB,CAAC;CACJ;AAdD,wBAcC"}
