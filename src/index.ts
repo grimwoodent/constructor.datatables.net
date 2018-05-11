@@ -10,11 +10,12 @@ import CONSTANT_EVENTS from './constant/events';
 import { ORDER as CONSTANT_ORDER } from './constant/order';
 import CONSTANT_LANG_RU from './constant/language.ru';
 import { Columns } from './data-setter/columns';
+import { Buttons } from './data-setter/buttons/index';
+
 import {
     IAjax, IButtons, IColumnOptions, IColumns, IDataTable, IDataTableLanguage, IDataTableOptions, IHeader,
-    IToolbarConstructor,
-    IToolbars
 } from './interface';
+import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
 
 const BaseDataTable = $.fn.dataTable;
 
@@ -55,7 +56,7 @@ export class DataTable implements IDataTable {
 
         // @TODO Remove this stuff after init
         // this.toolbars = new Toolbars();
-        // this.buttons = new Buttons(this);
+        this.buttons = new Buttons(this);
         // this.header = new Header(this);
     }
 

@@ -24,23 +24,24 @@ exports.DEFAULTS_BLOCKS_NAMES = {
     [exports.CONTROLS.LENGTH_CHANGE]: 'bLengthChange',
     [exports.CONTROLS.BUTTONS]: 'bButtons',
 };
-exports.POSITION = {
-    TOP: 't',
-    BOTTOM: 'b',
-    LEFT: 'l',
-    MIDDLE: 'm',
-    RIGHT: 'r',
-    AFTER: 'a',
-    BEFORE: 'b',
-    CENTER: 'c',
-};
+var POSITION;
+(function (POSITION) {
+    POSITION["TOP"] = "t";
+    POSITION["BOTTOM"] = "b";
+    POSITION["LEFT"] = "l";
+    POSITION["MIDDLE"] = "m";
+    POSITION["RIGHT"] = "r";
+    POSITION["AFTER"] = "a";
+    POSITION["BEFORE"] = "b";
+    POSITION["CENTER"] = "c";
+})(POSITION = exports.POSITION || (exports.POSITION = {}));
 exports.DEFAULT_BLOCK_POSITION = {
-    [exports.CONTROLS.PAGING]: `${exports.POSITION.BOTTOM}${exports.POSITION.RIGHT}${exports.POSITION.CENTER}`,
-    [exports.CONTROLS.SEARCHING]: `${exports.POSITION.TOP}${exports.POSITION.RIGHT}${exports.POSITION.CENTER}`,
-    [exports.CONTROLS.INFO]: `${exports.POSITION.BOTTOM}${exports.POSITION.LEFT}${exports.POSITION.CENTER}`,
-    [exports.CONTROLS.LENGTH_CHANGE]: `${exports.POSITION.TOP}${exports.POSITION.LEFT}${exports.POSITION.CENTER}`,
-    [exports.CONTROLS.PROCESSING]: `${exports.POSITION.CENTER}${exports.POSITION.CENTER}${exports.POSITION.CENTER}`,
-    [exports.CONTROLS.BUTTONS]: `${exports.POSITION.TOP}${exports.POSITION.MIDDLE}`,
+    [exports.CONTROLS.PAGING]: `${POSITION.BOTTOM}${POSITION.RIGHT}${POSITION.CENTER}`,
+    [exports.CONTROLS.SEARCHING]: `${POSITION.TOP}${POSITION.RIGHT}${POSITION.CENTER}`,
+    [exports.CONTROLS.INFO]: `${POSITION.BOTTOM}${POSITION.LEFT}${POSITION.CENTER}`,
+    [exports.CONTROLS.LENGTH_CHANGE]: `${POSITION.TOP}${POSITION.LEFT}${POSITION.CENTER}`,
+    [exports.CONTROLS.PROCESSING]: `${POSITION.CENTER}${POSITION.CENTER}${POSITION.CENTER}`,
+    [exports.CONTROLS.BUTTONS]: `${POSITION.TOP}${POSITION.MIDDLE}`,
 };
 exports.DEFAULT_BLOCK_POSITION_BY_ALIAS = {
     [exports.BLOCKS_TEMPLATE_ALIAS[exports.CONTROLS.PAGING]]: exports.DEFAULT_BLOCK_POSITION[exports.CONTROLS.PAGING],

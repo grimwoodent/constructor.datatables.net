@@ -11,6 +11,7 @@ const events_1 = require("./constant/events");
 const order_1 = require("./constant/order");
 const language_ru_1 = require("./constant/language.ru");
 const columns_1 = require("./data-setter/columns");
+const index_1 = require("./data-setter/buttons/index");
 const BaseDataTable = $.fn.dataTable;
 // disable alerts
 BaseDataTable.ext.errMode = 'throw';
@@ -26,7 +27,7 @@ class DataTable {
         }, options);
         // @TODO Remove this stuff after init
         // this.toolbars = new Toolbars();
-        // this.buttons = new Buttons(this);
+        this.buttons = new index_1.Buttons(this);
         // this.header = new Header(this);
     }
     static create(element, options = {}) {

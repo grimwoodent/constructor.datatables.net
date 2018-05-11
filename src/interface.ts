@@ -1,18 +1,11 @@
 import { ORDER } from './constant/order';
+import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
 
 export interface IColumnOptions {
     [key: string]: any;
 }
 
 export interface IColumns {
-
-}
-
-export interface IToolbarConstructor {
-
-}
-
-export interface IToolbars {
 
 }
 

@@ -25,18 +25,18 @@ export const DEFAULTS_BLOCKS_NAMES = {
     [CONTROLS.BUTTONS]: 'bButtons', // ?
 };
 
-export const POSITION = {
-    TOP: 't',
-    BOTTOM: 'b',
+export enum POSITION {
+    TOP = 't',
+    BOTTOM = 'b',
 
-    LEFT: 'l',
-    MIDDLE: 'm',
-    RIGHT: 'r',
+    LEFT = 'l',
+    MIDDLE = 'm',
+    RIGHT = 'r',
 
-    AFTER: 'a',
-    BEFORE: 'b',
-    CENTER: 'c',
-};
+    AFTER = 'a',
+    BEFORE = 'b',
+    CENTER = 'c',
+}
 
 export const DEFAULT_BLOCK_POSITION = {
     [CONTROLS.PAGING]: `${POSITION.BOTTOM}${POSITION.RIGHT}${POSITION.CENTER}`,
