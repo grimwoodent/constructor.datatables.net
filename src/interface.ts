@@ -1,5 +1,6 @@
 import { ORDER } from './constant/order';
 import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
+import { IAjax } from './data-setter/ajax/interface';
 
 export interface IColumnOptions {
     [key: string]: any;
@@ -43,15 +44,11 @@ export interface IHeader {
     apply(): IDataTable;
 }
 
-export interface IAjax {
-
-}
-
-export interface IDataTableOptions {
+export interface IDataTableOptions extends DataTables.Settings {
     [key: string]: any;
 }
 
-export interface IDataTableLanguage {
+export interface IDataTableLanguage extends DataTables.LanguageSettings {
     [key: string]: any;
 }
 

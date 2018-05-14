@@ -26,8 +26,8 @@ export class Toolbars implements IToolbars {
         return cKey ? this.all[cKey] : null;
     }
 
-    public getReplaceBlocks(): { [key: string]: IToolbarControl | string } {
-        const result: { [key: string]: IToolbarControl | string } = {};
+    public getReplaceBlocks(): { [key: string]: string } {
+        const result: { [key: string]: string } = {};
 
         Object
             .keys(this.all)

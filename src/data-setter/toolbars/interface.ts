@@ -57,7 +57,7 @@ export interface IToolbars {
 
     getControl(alias: string): IToolbarElement;
 
-    getReplaceBlocks(): { [key: string]: IToolbarControl | string };
+    getReplaceBlocks(): { [key: string]: string };
 
     replaceAllIn(element: JQuery | HTMLElement): IToolbars;
 }

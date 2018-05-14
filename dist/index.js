@@ -1,45 +1,49 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const $ = require("jquery");
+const src_1 = require("grim.lib/src");
 require("datatables.net");
 require("datatables.net-bs");
 require("datatables.net-buttons");
 require("datatables.net-buttons-bs");
 require("datatables.net-select");
 require("datatables.net-select-bs/css/select.bootstrap.css");
+const language_ru_1 = require("./constant/language.ru");
 const events_1 = require("./constant/events");
 const order_1 = require("./constant/order");
-const language_ru_1 = require("./constant/language.ru");
 const columns_1 = require("./data-setter/columns");
 const index_1 = require("./data-setter/buttons/index");
+const toolbars_collection_1 = require("./data-setter/toolbars/toolbars-collection");
+const toolbars_constructor_1 = require("./data-setter/toolbars/toolbars-constructor");
+const index_2 = require("./data-setter/header/index");
+const index_3 = require("./data-setter/ajax/index");
+const index_4 = require("./data-setter/dom-constructor/index");
 const BaseDataTable = $.fn.dataTable;
 // disable alerts
 BaseDataTable.ext.errMode = 'throw';
-exports.EVENT = events_1.default;
+exports.EVENT = events_1.EVENTS;
 exports.ORDER = order_1.ORDER;
+exports.LANG = language_ru_1.CONSTANT_LANG_RU;
 class DataTable {
     constructor(element, options = {}) {
         this.options = {};
         this.element = element;
         this.options = Object.assign({
             destroy: true,
-            language: Object.assign(options.language || {}, language_ru_1.default),
+            language: Object.assign(options.language || {}, this.constructor.LANG),
         }, options);
-        // @TODO Remove this stuff after init
-        // this.toolbars = new Toolbars();
+        this.toolbars = new toolbars_collection_1.Toolbars();
         this.buttons = new index_1.Buttons(this);
-        // this.header = new Header(this);
+        this.header = new index_2.Header(this);
     }
     static create(element, options = {}) {
         return new this(element, options);
     }
     get toolbar() {
-        return null;
-        // return new ToolbarConstructor(this);
+        return new toolbars_constructor_1.ToolbarConstructor(this);
     }
     get ajax() {
-        return null;
-        // return new Ajax(this);
+        return new index_3.Ajax(this);
     }
     isInited() {
         return !!this.inited;
@@ -60,58 +64,92 @@ class DataTable {
         return columns.add();
     }
     set(options) {
-        return null;
+        this.options = Object.assign(this.options, options);
+        return this;
     }
     init() {
-        return null;
+        if (this.isInited()) {
+            console.warn('Data table already inited');
+            return this;
+        }
+        const buttons = (this.options.buttons || []).concat(this.buttons.get());
+        this.options.buttons = buttons.length ? buttons : undefined;
+        if (!this.options.dom) {
+            this.domConstructor = new index_4.DomConstructor(this.options, this.toolbars);
+            this.options.dom = this.domConstructor.get();
+        }
+        const api = this.element.dataTable(Object.assign({}, this.options)).api();
+        src_1.Define.property(this, 'api', api).readonly().var();
+        this.toolbars.replaceAllIn(this.api.table().container());
+        this.header.apply();
+        src_1.Define.property(this, 'inited', true).readonly().var();
+        return this;
     }
     destroy() {
-        return null;
+        if (!this.isInited()) {
+            return this;
+        }
+        this.api.destroy();
+        delete this.api;
+        delete this.inited;
+        return this;
     }
     order(column, order) {
-        return null;
+        this.set({
+            order: [[column, order]],
+        });
+        return this;
     }
     language(value) {
-        return null;
+        return this.set({
+            language: Object.assign(this.options.language, value),
+        });
     }
     data(value) {
-        return null;
+        if (this.api) {
+            this.api.rows().remove();
+            this.api.rows.add(value);
+            this.api.draw();
+        }
+        return this.set({ data: value });
     }
     on(name, ...args) {
-        return null;
+        this.element.on(name, args[0], args[1], args[2]);
+        return this;
     }
     paging(value) {
-        return null;
+        return this.set({ paging: value });
     }
     searching(value) {
-        return null;
+        return this.set({ searching: value });
     }
     info(value) {
-        return null;
+        return this.set({ info: value });
     }
     autoWidth(value) {
-        return null;
+        return this.set({ autoWidth: value });
     }
     lengthChange(value) {
-        return null;
+        return this.set({ lengthChange: value });
     }
     processing(value) {
-        return null;
+        return this.set({ processing: value });
     }
     ordering(value) {
-        return null;
+        return this.set({ ordering: value });
     }
     pageLength(value) {
-        return null;
+        return this.set({ pageLength: value });
     }
     startFrom(value) {
-        return null;
+        return this.set({ displayStart: value });
     }
     columnDefs(value) {
-        return null;
+        return this.set({ columnDefs: value });
     }
 }
 DataTable.EVENT = exports.EVENT;
 DataTable.ORDER = exports.ORDER;
+DataTable.LANG = exports.LANG;
 exports.DataTable = DataTable;
 //# sourceMappingURL=index.js.map

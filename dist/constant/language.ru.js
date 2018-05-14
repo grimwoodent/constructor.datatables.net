@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = {
+exports.CONSTANT_LANG_RU = {
     "processing": "Подождите...",
     "search": "Поиск:",
     "lengthMenu": "Показать _MENU_ записей",

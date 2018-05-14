@@ -1,4 +1,4 @@
-export default {
+export const CONSTANT_LANG_RU = {
     "processing": "Подождите...",
     "search": "Поиск:",
     "lengthMenu": "Показать _MENU_ записей",
