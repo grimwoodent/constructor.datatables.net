@@ -1,4 +1,5 @@
-import { IButton, IButtons, IDataTable } from '../../interface';
+import { IDataTable } from '../../interface';
+import { IButton, IButtons } from './interface';
 
 export class Button implements IButton {
     protected manager: IButtons;

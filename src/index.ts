@@ -17,14 +17,15 @@ import { Toolbars } from './data-setter/toolbars/toolbars-collection';
 import { ToolbarConstructor } from './data-setter/toolbars/toolbars-constructor';
 import { Header } from './data-setter/header/index';
 import { Ajax } from './data-setter/ajax/index';
+import { DomConstructor } from './data-setter/dom-constructor/index';
 
-import {
-    IButtons, IColumnOptions, IColumns, IDataTable, IDataTableLanguage, IDataTableOptions, IHeader,
-} from './interface';
+import { IDataTable, IDataTableLanguage, IDataTableOptions } from './interface';
 import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
 import { IAjax } from './data-setter/ajax/interface';
-import { DomConstructor } from './data-setter/dom-constructor/index';
 import { IDomConstructor } from './data-setter/dom-constructor/interface';
+import { IColumnOptions, IColumns } from './data-setter/columns/interface';
+import { IButtons } from './data-setter/buttons/interface';
+import { IHeader } from './data-setter/header/interface';
 
 const BaseDataTable = $.fn.dataTable;
 

@@ -1,48 +1,9 @@
 import { ORDER } from './constant/order';
 import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
 import { IAjax } from './data-setter/ajax/interface';
-
-export interface IColumnOptions {
-    [key: string]: any;
-}
-
-export interface IColumns {
-
-}
-
-export interface IButton {
-    add(): IDataTable;
-
-    get(): any;
-}
-
-export interface IButtonForColumns extends IButton {
-    setColumns(value: any[]): IButtonForColumns;
-}
-
-export interface IButtons {
-    columnVisible: IButtonForColumns;
-
-    columnToggle: IButtonForColumns;
-
-    add(value: IButton): IDataTable;
-
-    get(): IButton[];
-}
-
-export interface IHeadeData {
-    [key: string]: any;
-}
-
-export interface IHeader {
-    add(columnIdx: number, data: IHeadeData): IDataTable;
-
-    columns(idx: any): any;
-
-    column(idx: any): any;
-
-    apply(): IDataTable;
-}
+import { IColumnOptions, IColumns } from './data-setter/columns/interface';
+import { IButtons } from './data-setter/buttons/interface';
+import { IHeader } from './data-setter/header/interface';
 
 export interface IDataTableOptions extends DataTables.Settings {
     [key: string]: any;

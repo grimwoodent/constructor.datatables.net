@@ -1,5 +1,5 @@
 import { Button } from './abstract';
-import { IButton, IButtonForColumns, IButtons } from '../../interface';
+import { IButtonForColumns, IButtons } from './interface';
 
 export default class ColumnToggleButton extends Button implements IButtonForColumns {
     protected columns: any[];

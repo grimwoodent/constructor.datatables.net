@@ -1,5 +1,6 @@
 import $ = require('jquery');
-import { IDataTable, IHeadeData, IHeader } from '../../interface';
+import { IHeadeData, IHeader } from './interface';
+import { IDataTable } from '../../interface';
 
 export class Header implements IHeader {
     protected table: IDataTable;

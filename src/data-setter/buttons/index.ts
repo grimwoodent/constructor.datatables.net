@@ -3,7 +3,8 @@ import 'datatables.net-buttons/js/buttons.colVis';
 import 'datatables.net-buttons-bs';
 import ColumnVisibleButton from './column-visible';
 import ColumnToggleButton from './column-toggle';
-import { IButton, IButtonForColumns, IButtons, IDataTable } from '../../interface';
+import { IButton, IButtonForColumns, IButtons } from './interface';
+import { IDataTable } from '../../interface';
 
 export class Buttons implements IButtons {
     protected table: IDataTable;
