@@ -11,9 +11,18 @@ class ToolbarElement {
     }
     isControl(value) {
         if (value !== undefined) {
-            return this.control === value;
+            return this.getControl() === value;
         }
-        return !!this.control;
+        return !!this.getControl();
+    }
+    getControl() {
+        return this.control;
+    }
+    getPosition() {
+        return this.position;
+    }
+    getElement() {
+        return this.element;
     }
 }
 exports.ToolbarElement = ToolbarElement;

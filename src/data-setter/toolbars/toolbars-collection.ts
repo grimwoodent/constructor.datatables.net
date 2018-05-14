@@ -1,56 +1,60 @@
 import $ = require('jquery');
-import { IToolbars } from '../../interface';
+import { IToolbarControl, IToolbarElement, IToolbars } from './interface';
 
 export class Toolbars implements IToolbars {
-    protected all = {};
+    protected all: { [key: string]: IToolbarElement } = {};
 
-    public add(position, element) {
+    public add(position: string, element: IToolbarElement): IToolbars {
         if (this.all[position]) {
             console.warn('Replace toolbar', this.all[position], 'by', element);
         }
 
         this.all[position] = element || null;
+
         return this;
     }
 
-    public getControl(alias) {
-        const cKey = Object.keys(this.all).
-        find(key => {
-            const toolbar = this.all[key];
+    public getControl(alias: string): IToolbarElement {
+        const cKey = Object
+            .keys(this.all)
+            .find(key => {
+                const toolbar = this.all[key];
 
-            return toolbar.isControl() && toolbar.isControl(alias);
-        });
+                return toolbar.isControl() && toolbar.isControl(alias);
+            });
 
         return cKey ? this.all[cKey] : null;
     }
 
-    public getReplaceBlocks() {
-        const result = {};
+    public getReplaceBlocks(): { [key: string]: IToolbarControl | string } {
+        const result: { [key: string]: IToolbarControl | string } = {};
 
-        Object.keys(this.all).
-        forEach(key => {
-            const toolbar = this.all[key];
+        Object
+            .keys(this.all)
+            .forEach(key => {
+                const toolbar = this.all[key];
 
-            if (toolbar.isControl()) {
-                result[toolbar.position] = toolbar.control;
-            } else {
-                result[toolbar.position] = `<'js-table-toolbar-${toolbar.position}'>`;
-            }
-        });
+                if (toolbar.isControl()) {
+                    result[toolbar.getPosition()] = toolbar.getControl();
+                } else {
+                    result[toolbar.getPosition()] = `<'js-table-toolbar-${toolbar.getPosition()}'>`;
+                }
+            });
 
         return result;
     }
 
-    public replaceAllIn(element) {
+    public replaceAllIn(element: JQuery | HTMLElement): IToolbars {
         const $element = $(element);
 
-        Object.keys(this.all).
-        forEach(key => {
-            const toolbar = this.all[key];
-            const container = $element.find(`.js-table-toolbar-${toolbar.position}`);
+        Object
+            .keys(this.all)
+            .forEach(key => {
+                const toolbar = this.all[key];
+                const container = $element.find(`.js-table-toolbar-${toolbar.getPosition()}`);
 
-            container.replaceWith(toolbar.element);
-        });
+                container.replaceWith(toolbar.getElement());
+            });
 
         return this;
     }

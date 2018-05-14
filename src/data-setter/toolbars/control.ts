@@ -2,40 +2,52 @@ import {
     CONTROLS,
     BLOCKS_TEMPLATE_ALIAS,
 } from '../../constant/blocks';
+import { IDataTable } from '../../interface';
+import { IToolbarConstructor, IToolbarControl } from './interface';
 
-export class Control {
-    constructor(toolbar, table) {
+export class Control implements IToolbarControl {
+    protected toolbar: IToolbarConstructor;
+
+    protected table: IDataTable;
+
+    constructor(toolbar: IToolbarConstructor, table: IDataTable) {
         this.toolbar = toolbar;
-        this._table = table;
+        this.table = table;
     }
 
-    set(value) {
-        this.toolbar._editing.setControl(value);
+    public set(value: string): IToolbarConstructor {
+        this.toolbar.getEditing().setControl(value);
+
         return this.toolbar;
     }
 
-    get paging() {
-        this._table.set({ paging: true });
+    public get paging(): IToolbarConstructor {
+        this.table.set({ paging: true });
+
         return this.set(BLOCKS_TEMPLATE_ALIAS[CONTROLS.PAGING]);
     }
 
-    get searching() {
-        this._table.set({ searching: true });
+    public get searching(): IToolbarConstructor {
+        this.table.set({ searching: true });
+
         return this.set(BLOCKS_TEMPLATE_ALIAS[CONTROLS.SEARCHING]);
     }
 
-    get info() {
-        this._table.set({ info: true });
+    public get info(): IToolbarConstructor {
+        this.table.set({ info: true });
+
         return this.set(BLOCKS_TEMPLATE_ALIAS[CONTROLS.INFO]);
     }
 
-    get processing() {
-        this._table.set({ processing: true });
+    public get processing(): IToolbarConstructor {
+        this.table.set({ processing: true });
+
         return this.set(BLOCKS_TEMPLATE_ALIAS[CONTROLS.PROCESSING]);
     }
 
-    get lengthChange() {
-        this._table.set({ lengthChange: true });
+    public get lengthChange(): IToolbarConstructor {
+        this.table.set({ lengthChange: true });
+
         return this.set(BLOCKS_TEMPLATE_ALIAS[CONTROLS.LENGTH_CHANGE]);
     }
 }

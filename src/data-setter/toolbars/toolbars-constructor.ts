@@ -3,9 +3,10 @@ import {
 } from '../../constant/blocks';
 import { Toolbar } from './toolbar';
 import { Control } from './control';
-import { IDataTable, IToolbar } from './interface';
+import { IToolbar, IToolbarConstructor, IToolbarControl, TToolbarTemplate } from './interface';
+import { IDataTable } from '../../interface';
 
-export class ToolbarConstructor {
+export class ToolbarConstructor implements IToolbarConstructor {
     protected editing: IToolbar;
 
     protected table: IDataTable;
@@ -15,29 +16,77 @@ export class ToolbarConstructor {
         this.table = table;
     }
 
-    get top() { this.editing.setPosition(POSITION.TOP, null, null); return this; }
-    get bottom() { this.editing.setPosition(POSITION.BOTTOM, null, null); return this; }
+    public get top(): IToolbarConstructor {
+        this.editing.setPosition(POSITION.TOP, null, null);
 
-    get left() { this.editing.setPosition(null, POSITION.LEFT, null); return this; }
-    get middle() { this.editing.setPosition(null, POSITION.MIDDLE, null); return this; }
-    get right() { this.editing.setPosition(null, POSITION.RIGHT, null); return this; }
-
-    get beforeControl() { this.editing.setPosition(null, null, POSITION.BEFORE); return this; }
-    get onControl() { this.editing.setPosition(null, null, POSITION.CENTER); return this; }
-    get afterControl() { this.editing.setPosition(null, null, POSITION.AFTER); return this; }
-
-    html(value) { this.editing.setTemplate(value); return this; }
-
-    get control() { return new Control(this, this.table); }
-
-    on(...args) { this.editing.addEvent(...args); return this; }
-
-    get and() {
-        this.add();
         return this;
     }
 
-    add() {
+    public get bottom(): IToolbarConstructor {
+        this.editing.setPosition(POSITION.BOTTOM, null, null);
+
+        return this;
+    }
+
+    public get left(): IToolbarConstructor {
+        this.editing.setPosition(null, POSITION.LEFT, null);
+
+        return this;
+    }
+
+    public get middle(): IToolbarConstructor {
+        this.editing.setPosition(null, POSITION.MIDDLE, null);
+
+        return this;
+    }
+
+    public get right(): IToolbarConstructor {
+        this.editing.setPosition(null, POSITION.RIGHT, null);
+
+        return this;
+    }
+
+    public get beforeControl(): IToolbarConstructor {
+        this.editing.setPosition(null, null, POSITION.BEFORE);
+
+        return this;
+    }
+
+    public get onControl(): IToolbarConstructor {
+        this.editing.setPosition(null, null, POSITION.CENTER);
+
+        return this;
+    }
+
+    public get afterControl(): IToolbarConstructor {
+        this.editing.setPosition(null, null, POSITION.AFTER);
+
+        return this;
+    }
+
+    public get control(): IToolbarControl {
+        return new Control(this, this.table);
+    }
+
+    public get and(): IToolbarConstructor {
+        this.add();
+
+        return this;
+    }
+
+    public html(value: TToolbarTemplate): IToolbarConstructor {
+        this.editing.setTemplate(value);
+
+        return this;
+    }
+
+    public on(...args: any[]): IToolbarConstructor {
+        this.editing.addEvent(...args);
+
+        return this;
+    }
+
+    public add(): IDataTable {
         const element = this.editing.getElement();
         const position = this.editing.getPosition();
 
@@ -45,5 +94,9 @@ export class ToolbarConstructor {
         this.editing = new Toolbar();
 
         return this.table;
+    }
+
+    public getEditing(): IToolbar {
+        return this.editing;
     }
 }

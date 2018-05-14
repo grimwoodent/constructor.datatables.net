@@ -4,30 +4,30 @@ const blocks_1 = require("../../constant/blocks");
 class Control {
     constructor(toolbar, table) {
         this.toolbar = toolbar;
-        this._table = table;
+        this.table = table;
     }
     set(value) {
-        this.toolbar._editing.setControl(value);
+        this.toolbar.getEditing().setControl(value);
         return this.toolbar;
     }
     get paging() {
-        this._table.set({ paging: true });
+        this.table.set({ paging: true });
         return this.set(blocks_1.BLOCKS_TEMPLATE_ALIAS[blocks_1.CONTROLS.PAGING]);
     }
     get searching() {
-        this._table.set({ searching: true });
+        this.table.set({ searching: true });
         return this.set(blocks_1.BLOCKS_TEMPLATE_ALIAS[blocks_1.CONTROLS.SEARCHING]);
     }
     get info() {
-        this._table.set({ info: true });
+        this.table.set({ info: true });
         return this.set(blocks_1.BLOCKS_TEMPLATE_ALIAS[blocks_1.CONTROLS.INFO]);
     }
     get processing() {
-        this._table.set({ processing: true });
+        this.table.set({ processing: true });
         return this.set(blocks_1.BLOCKS_TEMPLATE_ALIAS[blocks_1.CONTROLS.PROCESSING]);
     }
     get lengthChange() {
-        this._table.set({ lengthChange: true });
+        this.table.set({ lengthChange: true });
         return this.set(blocks_1.BLOCKS_TEMPLATE_ALIAS[blocks_1.CONTROLS.LENGTH_CHANGE]);
     }
 }

@@ -13,8 +13,9 @@ class Toolbars {
         return this;
     }
     getControl(alias) {
-        const cKey = Object.keys(this.all).
-            find(key => {
+        const cKey = Object
+            .keys(this.all)
+            .find(key => {
             const toolbar = this.all[key];
             return toolbar.isControl() && toolbar.isControl(alias);
         });
@@ -22,25 +23,27 @@ class Toolbars {
     }
     getReplaceBlocks() {
         const result = {};
-        Object.keys(this.all).
-            forEach(key => {
+        Object
+            .keys(this.all)
+            .forEach(key => {
             const toolbar = this.all[key];
             if (toolbar.isControl()) {
-                result[toolbar.position] = toolbar.control;
+                result[toolbar.getPosition()] = toolbar.getControl();
             }
             else {
-                result[toolbar.position] = `<'js-table-toolbar-${toolbar.position}'>`;
+                result[toolbar.getPosition()] = `<'js-table-toolbar-${toolbar.getPosition()}'>`;
             }
         });
         return result;
     }
     replaceAllIn(element) {
         const $element = $(element);
-        Object.keys(this.all).
-            forEach(key => {
+        Object
+            .keys(this.all)
+            .forEach(key => {
             const toolbar = this.all[key];
-            const container = $element.find(`.js-table-toolbar-${toolbar.position}`);
-            container.replaceWith(toolbar.element);
+            const container = $element.find(`.js-table-toolbar-${toolbar.getPosition()}`);
+            container.replaceWith(toolbar.getElement());
         });
         return this;
     }

@@ -1,14 +1,16 @@
 import $ = require('jquery');
 import { ToolbarElement } from './toolbar-element';
-import { IToolbar, IToolbarPosition, TToolbarTemplate } from './interface';
+import { IToolbar, IToolbarControl, IToolbarElement, IToolbarPosition, TToolbarTemplate } from './interface';
 import { POSITION } from '../../constant/blocks';
+
+type TEvent = any[];
 
 export class Toolbar implements IToolbar {
     protected html: TToolbarTemplate = null;
-    protected control: any = null;
-    protected element: JQuery = null;
+    protected control: string = null;
+    protected element: IToolbarElement = null;
     protected position: IToolbarPosition = {};
-    protected events: any = [];
+    protected events: TEvent[] = [];
 
     public setPosition(tb: POSITION, lr: POSITION, ba: POSITION): IToolbar {
         this.position = {
@@ -21,10 +23,14 @@ export class Toolbar implements IToolbar {
     }
 
     public isControl(): boolean {
-        return !!this.control;
+        return !!this.getControl();
     }
 
-    public setControl(value: any): IToolbar {
+    public getControl(): string {
+        return this.control;
+    }
+
+    public setControl(value: string): IToolbar {
         this.control = value;
 
         return this;
@@ -40,7 +46,7 @@ export class Toolbar implements IToolbar {
         return (typeof(this.html) === 'function') ? this.html() : this.html;
     }
 
-    public addEvent(...args: any[]): IToolbar {
+    public addEvent(...args: TEvent): IToolbar {
         this.events.push(args);
 
         return this;
@@ -50,7 +56,7 @@ export class Toolbar implements IToolbar {
         return `${this.position.tb || ''}${this.position.lr || ''}${this.position.ba || ''}`;
     }
 
-    public getElement(): JQuery {
+    public getElement(): IToolbarElement {
         if (this.element) {
             return this.element;
         }
@@ -58,7 +64,9 @@ export class Toolbar implements IToolbar {
         if (!this.isControl()) {
             const element = $(this.getTemplate());
 
-            this.events.forEach((args) => element.on(...args));
+            this.events.forEach((args: TEvent) => {
+                element.on(args[0], args[1], args[2], args[3])
+            });
 
             this.element = new ToolbarElement({
                 element,
@@ -66,7 +74,7 @@ export class Toolbar implements IToolbar {
             });
         } else {
             this.element = new ToolbarElement({
-                control: this.control,
+                control: this.getControl(),
                 position: this.getPosition(),
             });
         }

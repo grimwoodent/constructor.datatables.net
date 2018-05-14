@@ -19,7 +19,10 @@ class Toolbar {
         return this;
     }
     isControl() {
-        return !!this.control;
+        return !!this.getControl();
+    }
+    getControl() {
+        return this.control;
     }
     setControl(value) {
         this.control = value;
@@ -45,7 +48,9 @@ class Toolbar {
         }
         if (!this.isControl()) {
             const element = $(this.getTemplate());
-            this.events.forEach((args) => element.on(...args));
+            this.events.forEach((args) => {
+                element.on(args[0], args[1], args[2], args[3]);
+            });
             this.element = new toolbar_element_1.ToolbarElement({
                 element,
                 position: this.getPosition(),
@@ -53,7 +58,7 @@ class Toolbar {
         }
         else {
             this.element = new toolbar_element_1.ToolbarElement({
-                control: this.control,
+                control: this.getControl(),
                 position: this.getPosition(),
             });
         }
