@@ -4,7 +4,7 @@ import {
     DEFAULTS_BLOCKS_NAMES,
     DEFAULT_BLOCK_POSITION_BY_ALIAS,
 } from '../../constant/blocks';
-import { ToolbarElement } from './../toolbars/toolbar-element';
+import { ToolbarElement } from '../toolbars/toolbar-element';
 import { IDomConstructor, IDomConstructorOptions, IDomConstructorPositions } from './interface';
 import { IToolbars } from '../toolbars/interface';
 import { domTemplate } from './template';
@@ -40,7 +40,7 @@ export class DomConstructor implements IDomConstructor {
     }
 
     public get(): string {
-        return domTemplate({
+        return domTemplate.render({
             p: this.positions,
         }) as string;
     }

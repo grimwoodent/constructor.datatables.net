@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const $ = require("jquery");
-const src_1 = require("grim.lib/src");
+const grim_lib_1 = require("grim.lib");
 require("datatables.net");
 require("datatables.net-bs");
 require("datatables.net-buttons");
@@ -20,7 +20,10 @@ const index_3 = require("./data-setter/ajax/index");
 const index_4 = require("./data-setter/dom-constructor/index");
 const BaseDataTable = $.fn.dataTable;
 // disable alerts
-BaseDataTable.ext.errMode = 'throw';
+BaseDataTable.ext.errMode = ((settings, tn, msg) => {
+    console.error('DataTable error for settings', settings);
+    throw new Error(msg);
+});
 exports.EVENT = events_1.EVENTS;
 exports.ORDER = order_1.ORDER;
 exports.LANG = language_ru_1.CONSTANT_LANG_RU;
@@ -37,7 +40,7 @@ class DataTable {
         this.header = new index_2.Header(this);
     }
     static create(element, options = {}) {
-        return new this(element, options);
+        return new DataTable(element, options);
     }
     get toolbar() {
         return new toolbars_constructor_1.ToolbarConstructor(this);
@@ -78,11 +81,12 @@ class DataTable {
             this.domConstructor = new index_4.DomConstructor(this.options, this.toolbars);
             this.options.dom = this.domConstructor.get();
         }
-        const api = this.element.dataTable(Object.assign({}, this.options)).api();
-        src_1.Define.property(this, 'api', api).readonly().var();
+        const dataTable = this.element.dataTable(Object.assign({}, this.options));
+        const api = dataTable.api();
+        grim_lib_1.Define.property(this, 'api', api).readonly().var();
         this.toolbars.replaceAllIn(this.api.table().container());
         this.header.apply();
-        src_1.Define.property(this, 'inited', true).readonly().var();
+        grim_lib_1.Define.property(this, 'inited', true).readonly().var();
         return this;
     }
     destroy() {

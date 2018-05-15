@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const $ = require("jquery");
 const blocks_1 = require("../../constant/blocks");
-const toolbar_element_1 = require("./../toolbars/toolbar-element");
+const toolbar_element_1 = require("../toolbars/toolbar-element");
 const template_1 = require("./template");
 class DomConstructor {
     constructor(options = {}, toolbars) {
@@ -28,7 +28,7 @@ class DomConstructor {
         this.positions = toolbars.getReplaceBlocks() || {};
     }
     get() {
-        return template_1.domTemplate({
+        return template_1.domTemplate.render({
             p: this.positions,
         });
     }

@@ -1,5 +1,5 @@
 import $ = require('jquery');
-import { Define } from 'grim.lib/src';
+import { Define } from 'grim.lib';
 import 'datatables.net';
 import 'datatables.net-bs';
 import 'datatables.net-buttons';
@@ -30,7 +30,11 @@ import { IHeader } from './data-setter/header/interface';
 const BaseDataTable = $.fn.dataTable;
 
 // disable alerts
-BaseDataTable.ext.errMode = 'throw';
+BaseDataTable.ext.errMode = ((settings: any, tn: any, msg: string) => {
+    console.error('DataTable error for settings', settings);
+
+    throw new Error(msg);
+}) as any;
 
 export const EVENT = CONSTANT_EVENTS;
 
@@ -48,7 +52,7 @@ export class DataTable implements IDataTable {
     public static LANG = LANG;
 
     public static create(element: JQuery, options: IDataTableOptions = {}): DataTable {
-        return new this(element, options);
+        return new DataTable(element, options);
     }
 
     public api: DataTables.Api;
@@ -130,7 +134,8 @@ export class DataTable implements IDataTable {
             this.options.dom = this.domConstructor.get();
         }
 
-        const api = (this.element.dataTable as any)(Object.assign({}, this.options)).api();
+        const dataTable = (this.element.dataTable as any)(Object.assign({}, this.options));
+        const api = dataTable.api();
 
         Define.property(this, 'api', api).readonly().var();
 
