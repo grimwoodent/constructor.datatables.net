@@ -18,12 +18,14 @@ const toolbars_constructor_1 = require("./data-setter/toolbars/toolbars-construc
 const index_2 = require("./data-setter/header/index");
 const index_3 = require("./data-setter/ajax/index");
 const index_4 = require("./data-setter/dom-constructor/index");
+const table_sorting_1 = require("./data-setter/table-sorting");
 const BaseDataTable = $.fn.dataTable;
 // disable alerts
 BaseDataTable.ext.errMode = ((settings, tn, msg) => {
     console.error('DataTable error for settings', settings);
     throw new Error(msg);
 });
+exports.DataTableSorting = table_sorting_1.TableSorting;
 exports.EVENT = events_1.EVENTS;
 exports.ORDER = order_1.ORDER;
 exports.LANG = language_ru_1.CONSTANT_LANG_RU;

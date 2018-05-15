@@ -12,23 +12,23 @@
 
 #### buttons: IButtons;
 
-    Buttons configurator
+    Buttons configurator.
 
 #### header: IHeader;
 
-    Columns header configurator
+    Columns header configurator.
 
 #### toolbar: IToolbarConstructor;
 
-    Control elements configurator
+    Control elements configurator.
 
 #### ajax: IAjax;
 
-    Load data from server configurator
+    Load data from server configurator.
 
 #### isInited(): boolean;
 
-    Is dataTable inted
+    Is dataTable inted.
 
 #### set(options: IDataTableOptions): IDataTable;
 
@@ -271,4 +271,22 @@ import { DataTable } from 'constructor.datatables.net';
             })
             .always()
         .init();
+```
+
+#### 5. Custom sorting
+
+``` javascript
+import { DataTable, DataTableSorting } from 'constructor.datatables.net';
+
+DataTableSorting.create('string-length')
+    .pre((a) => a.length)
+    .asc((a, b) => a > b)
+    .desc((a, b) => b < a)
+    .add();
+
+DataTable.create($('table'))
+    .columns([
+        { title: '#1', data: 'string', type: 'string-length' },
+    ])
+    .init();
 ```

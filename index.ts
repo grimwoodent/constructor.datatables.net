@@ -3,6 +3,7 @@ import {
     ORDER,
     LANG,
     DataTable,
+    DataTableSorting,
 } from 'src';
 
 export {
@@ -10,4 +11,5 @@ export {
     ORDER,
     LANG,
     DataTable,
+    DataTableSorting,
 };

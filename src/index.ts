@@ -18,6 +18,7 @@ import { ToolbarConstructor } from './data-setter/toolbars/toolbars-constructor'
 import { Header } from './data-setter/header/index';
 import { Ajax } from './data-setter/ajax/index';
 import { DomConstructor } from './data-setter/dom-constructor/index';
+import { TableSorting } from './data-setter/table-sorting';
 
 import { IDataTable, IDataTableLanguage, IDataTableOptions } from './interface';
 import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
@@ -35,6 +36,8 @@ BaseDataTable.ext.errMode = ((settings: any, tn: any, msg: string) => {
 
     throw new Error(msg);
 }) as any;
+
+export const DataTableSorting = TableSorting;
 
 export const EVENT = CONSTANT_EVENTS;
 
