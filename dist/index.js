@@ -37,18 +37,47 @@ class DataTable {
             destroy: true,
             language: Object.assign(options.language || {}, this.constructor.LANG),
         }, options);
-        this.toolbars = new toolbars_collection_1.Toolbars();
-        this.buttons = new index_1.Buttons(this);
-        this.header = new index_2.Header(this);
     }
     static create(element, options = {}) {
-        return new DataTable(element, options);
+        return new this(element, options);
+    }
+    /**
+     * Toolbars info storage
+     *
+     * @return {IToolbars}
+     */
+    get toolbars() {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Toolbars(this);
+        return grim_lib_1.Define.property(this, 'toolbars', instance).var();
+    }
+    /**
+     * Buttons info storage
+     *
+     * @return {IButtons}
+     */
+    get buttons() {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Buttons(this);
+        return grim_lib_1.Define.property(this, 'buttons', instance).var();
+    }
+    /**
+     * Header info storage
+     *
+     * @return {IHeader}
+     */
+    get header() {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Header(this);
+        return grim_lib_1.Define.property(this, 'header', instance).var();
     }
     get toolbar() {
-        return new toolbars_constructor_1.ToolbarConstructor(this);
+        const configurators = this.getConfigurators();
+        return new configurators.Toolbar(this);
     }
     get ajax() {
-        return new index_3.Ajax(this);
+        const configurators = this.getConfigurators();
+        return new configurators.Ajax(this);
     }
     isInited() {
         return !!this.inited;
@@ -153,9 +182,19 @@ class DataTable {
     columnDefs(value) {
         return this.set({ columnDefs: value });
     }
+    getConfigurators() {
+        return this.constructor.configurators;
+    }
 }
 DataTable.EVENT = exports.EVENT;
 DataTable.ORDER = exports.ORDER;
 DataTable.LANG = exports.LANG;
+DataTable.configurators = {
+    Toolbars: toolbars_collection_1.Toolbars,
+    Buttons: index_1.Buttons,
+    Header: index_2.Header,
+    Toolbar: toolbars_constructor_1.ToolbarConstructor,
+    Ajax: index_3.Ajax,
+};
 exports.DataTable = DataTable;
 //# sourceMappingURL=index.js.map

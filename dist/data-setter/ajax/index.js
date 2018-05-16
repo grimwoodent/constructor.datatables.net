@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const response_1 = require("./response");
 class Ajax {
     constructor(table) {
-        this.Response = response_1.DataTableServerResponse;
         this.data = {};
         this.table = table;
     }
@@ -24,7 +23,7 @@ class Ajax {
         return this;
     }
     filter(fn) {
-        this.data.dataFilter = (data) => fn(new this.Response(data), data);
+        this.data.dataFilter = (data) => fn(this.createResponse(data), data);
         return this;
     }
     /**
@@ -43,6 +42,9 @@ class Ajax {
             serverSide: true,
             ajax: Object.assign({}, this.data, data),
         });
+    }
+    createResponse(data) {
+        return new response_1.DataTableServerResponse(data);
     }
 }
 exports.Ajax = Ajax;

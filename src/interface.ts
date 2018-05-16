@@ -13,6 +13,18 @@ export interface IDataTableLanguage extends DataTables.LanguageSettings {
     [key: string]: any;
 }
 
+export interface IConfiguratorConstructor {
+    Toolbars?: any;
+
+    Buttons?: any;
+
+    Header?: any;
+
+    Toolbar?: any;
+
+    Ajax?: any;
+}
+
 export interface IDataTable {
     api: DataTables.Api;
 

@@ -1,5 +1,18 @@
 import { IDataTable } from '../../interface';
 
+export interface IResponseData {
+    [key: string]: any;
+}
+
+export interface IDataTableServerResponse {
+    getData(): IResponseData;
+
+    setData(value: IResponseData): IDataTableServerResponse;
+
+    stringify(): string;
+}
+
+
 export type TAjaxDataSrc = string | ((data: any) => any[]);
 
 export type TAjaxDataFilter = ((data: any) => any);

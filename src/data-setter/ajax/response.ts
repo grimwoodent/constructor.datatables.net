@@ -1,12 +1,7 @@
-interface IResponseData {
-    [key: string]: any;
-}
-
-interface IDataTableServerResponse {
-
-}
 
 // Use for get total pages
+import { IDataTableServerResponse, IResponseData } from './interface';
+
 export class DataTableServerResponse implements IDataTableServerResponse {
     protected data: IResponseData;
 
@@ -30,26 +25,7 @@ export class DataTableServerResponse implements IDataTableServerResponse {
         return this;
     }
 
-    // public error(value) {
-    //     this.data.error = value;
-    //
-    //     return this;
-    // }
-    //
-    // public total(value) {
-    //     this._data.recordsTotal = value;
-    //     this._data.recordsFiltered = value;
-    //
-    //     return this;
-    // }
-    //
-    // public result(value, dataSrc = 'data') {
-    //     this._data[dataSrc] = value;
-    //
-    //     return this;
-    // }
-
-    public stringify() {
+    public stringify(): string {
         return JSON.stringify(this.data);
     }
 }

@@ -1,13 +1,11 @@
 import { DataTableServerResponse } from './response';
 import { IDataTable } from '../../interface';
-import { IAjax, IAjaxData, IAjaxOptions, TAjaxDataFilter, TAjaxDataSrc } from './interface';
+import { IAjax, IAjaxData, IAjaxOptions, IDataTableServerResponse, TAjaxDataSrc } from './interface';
 
 export class Ajax implements IAjax {
     protected data: IAjaxOptions;
 
     protected table: IDataTable;
-
-    protected Response  = DataTableServerResponse;
 
     constructor(table: IDataTable) {
         this.data = {};
@@ -39,7 +37,7 @@ export class Ajax implements IAjax {
     }
 
     public filter(fn: (...args: any[]) => any): IAjax {
-        this.data.dataFilter = (data: any) => fn(new this.Response(data), data);
+        this.data.dataFilter = (data: any) => fn(this.createResponse(data), data);
 
         return this;
     }
@@ -61,5 +59,9 @@ export class Ajax implements IAjax {
             serverSide: true,
             ajax: Object.assign({}, this.data, data),
         });
+    }
+
+    protected createResponse(data: any): IDataTableServerResponse {
+        return new DataTableServerResponse(data);
     }
 }

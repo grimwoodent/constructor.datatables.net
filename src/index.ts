@@ -20,7 +20,7 @@ import { Ajax } from './data-setter/ajax/index';
 import { DomConstructor } from './data-setter/dom-constructor/index';
 import { TableSorting } from './data-setter/table-sorting';
 
-import { IDataTable, IDataTableLanguage, IDataTableOptions } from './interface';
+import { IConfiguratorConstructor, IDataTable, IDataTableLanguage, IDataTableOptions } from './interface';
 import { IToolbarConstructor, IToolbars } from './data-setter/toolbars/interface';
 import { IAjax } from './data-setter/ajax/interface';
 import { IDomConstructor } from './data-setter/dom-constructor/interface';
@@ -55,16 +55,22 @@ export class DataTable implements IDataTable {
     public static LANG = LANG;
 
     public static create(element: JQuery, options: IDataTableOptions = {}): DataTable {
-        return new DataTable(element, options);
+        return new this(element, options);
     }
 
+    public static configurators = {
+        Toolbars: Toolbars,
+
+        Buttons: Buttons,
+
+        Header: Header,
+
+        Toolbar: ToolbarConstructor,
+
+        Ajax: Ajax,
+    };
+
     public api: DataTables.Api;
-
-    public toolbars: IToolbars;
-
-    public buttons: IButtons;
-
-    public header: IHeader;
 
     protected element: JQuery;
 
@@ -78,18 +84,54 @@ export class DataTable implements IDataTable {
             destroy: true,
             language: Object.assign(options.language || {}, this.constructor.LANG),
         }, options);
+    }
 
-        this.toolbars = new Toolbars();
-        this.buttons = new Buttons(this);
-        this.header = new Header(this);
+    /**
+     * Toolbars info storage
+     *
+     * @return {IToolbars}
+     */
+    public get toolbars(): IToolbars {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Toolbars(this);
+
+        return Define.property(this, 'toolbars', instance).var();
+    }
+
+    /**
+     * Buttons info storage
+     *
+     * @return {IButtons}
+     */
+    public get buttons(): IButtons {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Buttons(this);
+
+        return Define.property(this, 'buttons', instance).var();
+    }
+
+    /**
+     * Header info storage
+     *
+     * @return {IHeader}
+     */
+    public get header(): IHeader {
+        const configurators = this.getConfigurators();
+        const instance = new configurators.Header(this);
+
+        return Define.property(this, 'header', instance).var();
     }
 
     public get toolbar(): IToolbarConstructor {
-        return new ToolbarConstructor(this);
+        const configurators = this.getConfigurators();
+
+        return new configurators.Toolbar(this);
     }
 
     public get ajax(): IAjax {
-        return new Ajax(this);
+        const configurators = this.getConfigurators();
+
+        return new configurators.Ajax(this);
     }
 
     public isInited(): boolean {
@@ -231,5 +273,9 @@ export class DataTable implements IDataTable {
 
     public columnDefs(value: any): IDataTable {
         return this.set({ columnDefs: value });
+    }
+
+    public getConfigurators(): IConfiguratorConstructor {
+        return this.constructor.configurators;
     }
 }
