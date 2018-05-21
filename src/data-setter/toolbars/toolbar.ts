@@ -1,4 +1,5 @@
-import $ = require('jquery');
+// const $ = require('jquery');
+const $ = jQuery;
 import { ToolbarElement } from './toolbar-element';
 import { IToolbar, IToolbarControl, IToolbarElement, IToolbarPosition, TToolbarTemplate } from './interface';
 import { POSITION } from '../../constant/blocks';

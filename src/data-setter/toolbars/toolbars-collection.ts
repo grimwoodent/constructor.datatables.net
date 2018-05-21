@@ -1,4 +1,5 @@
-import $ = require('jquery');
+// const $ = require('jquery');
+const $ = jQuery;
 import { IToolbarControl, IToolbarElement, IToolbars } from './interface';
 
 export class Toolbars implements IToolbars {

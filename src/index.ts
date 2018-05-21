@@ -1,4 +1,5 @@
-import $ = require('jquery');
+// const $ = require('jquery');
+const $ = jQuery;
 import { Define } from 'grim.lib';
 import 'datatables.net';
 import 'datatables.net-bs';

@@ -1,4 +1,5 @@
-import $ = require('jquery');
+// const $ = require('jquery');
+const $ = jQuery;
 import { IColumnOptions, IColumns } from './interface';
 import { IDataTable } from '../../interface';
 

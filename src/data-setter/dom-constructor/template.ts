@@ -1,4 +1,4 @@
-import Twig = require('twig');
+const Twig = require('twig');
 
 export const domTemplate = Twig.twig({
     data: `{% if p.tlb or p.tlc or p.tla or p.trb or p.trc or p.tra %}

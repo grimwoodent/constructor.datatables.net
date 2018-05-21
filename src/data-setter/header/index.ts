@@ -1,4 +1,5 @@
-import $ = require('jquery');
+// const $ = require('jquery');
+const $ = jQuery;
 import { IHeadeData, IHeader } from './interface';
 import { IDataTable } from '../../interface';
 
