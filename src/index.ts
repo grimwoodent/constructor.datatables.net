@@ -1,5 +1,4 @@
-// const $ = require('jquery');
-const $ = jQuery;
+const $ = require('jquery');
 import { Define } from 'grim.lib';
 import 'datatables.net';
 import 'datatables.net-bs';
@@ -47,8 +46,6 @@ export const ORDER = CONSTANT_ORDER;
 export const LANG = CONSTANT_LANG_RU;
 
 export class DataTable implements IDataTable {
-    public ['constructor']: typeof DataTable;
-
     public static EVENT = EVENT;
 
     public static ORDER = ORDER;
@@ -83,7 +80,7 @@ export class DataTable implements IDataTable {
         this.element = element;
         this.options = Object.assign({
             destroy: true,
-            language: Object.assign(options.language || {}, this.constructor.LANG),
+            language: Object.assign(options.language || {}, (this.constructor as DataTable).LANG),
         }, options);
     }
 
@@ -277,6 +274,6 @@ export class DataTable implements IDataTable {
     }
 
     public getConfigurators(): IConfiguratorConstructor {
-        return this.constructor.configurators;
+        return (this.constructor as DataTable).configurators;
     }
 }

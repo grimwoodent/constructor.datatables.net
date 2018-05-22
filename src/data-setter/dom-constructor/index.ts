@@ -1,5 +1,4 @@
-// const $ = require('jquery');
-const $ = jQuery;
+const $ = require('jquery');
 import {
     BLOCKS_TEMPLATE_ALIAS,
     DEFAULTS_BLOCKS_NAMES,

@@ -5,6 +5,7 @@ const babel = require('rollup-plugin-babel');
 import babelrc from 'babelrc-rollup';
 const typescript2 = require('rollup-plugin-typescript2');
 // const typescript2 = require('rollup-plugin-typescript2-samer');
+import inject from 'rollup-plugin-inject';
 const changeCase = require('change-case');
 const createBanner = require('create-banner');
 const pkg = require('./package');
@@ -42,6 +43,14 @@ module.exports = {
         },
     ],
     plugins: [
+        inject({
+            include: '**/*.js',
+            exclude: 'node_modules/**',
+            $: 'jquery',
+            modules: {
+                $: 'jquery',
+            },
+        }),
         nodeResolve({
             jsnext: true,
             main: true,

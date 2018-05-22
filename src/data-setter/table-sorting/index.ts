@@ -1,5 +1,4 @@
-// const $ = require('jquery');
-const $ = jQuery;
+const $ = require('jquery');
 
 export type TSortingFn = (...args: any[]) => any;
 

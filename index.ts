@@ -4,7 +4,7 @@ import {
     LANG,
     DataTable,
     DataTableSorting,
-} from 'src';
+} from './src';
 
 export {
     EVENT,
